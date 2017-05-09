@@ -36,7 +36,7 @@ SECRET_KEY = getKey()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = getDebugState()
 
-ALLOWED_HOSTS = ['imagicaa.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['imagicaa.herokuapp.com','127.0.0.1','localhost']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
