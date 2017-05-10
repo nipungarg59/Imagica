@@ -4,10 +4,16 @@ import os
 from django.views.decorators.csrf import csrf_exempt
 from .myOwnDecorators import *
 import json
+import base64
 
 FILE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DETAILS_DIR = FILE_DIR + "/metadata/details"
+STATIC_DIR = FILE_DIR + "/djreact/static/images"
 
+def getDebugState():
+	if(str(os.environ.get('Debug'))==str(False)):
+		return False
+	return True
 
 def generateAccessKey(request):
 	print(FILE_DIR)
@@ -50,8 +56,11 @@ def readImageFile(key):
 			image = image.split(' ')
 			imageDetail['name'] = image[0]
 			imageDetail['location'] = image[1]
-			imageDetail['http-url'] = image[2]
-			imageDetail['partial-url'] = image[3]
+			imageDetail['partial-url'] = image[2]
+			if getDebugState():
+				imageDetail['http-url'] = "127.0.0.1:8000"+image[2]
+			else:
+				imageDetail['http-url'] = "https://imagicaa.herokuapp.com"+image[2]
 			detailsOfFile['images'].append(imageDetail)
 	return detailsOfFile
 
@@ -71,8 +80,48 @@ def getImageData(key,iname):
 				imageDetails['exists'] = True
 				imageDetails['name'] = image[0]
 				imageDetails['location'] = image[1]
-				imageDetails['http-url'] = image[2]
-				imageDetails['partial-url'] = image[3]
+				if getDebugState():
+					imageDetails['http-url'] = "127.0.0.1:8000"+image[2]
+				else:
+					imageDetails['http-url'] = "https://imagicaa.herokuapp.com"+image[2]
+				imageDetails['partial-url'] = image[2]
+	return imageDetails
+
+def addNewImageInFile(key,name,location):
+	with open(DETAILS_DIR+'/'+key+'.txt',"a") as file:
+		file.write(name+" "+location+" "+"/static/images/"+key+"/"+name+"\n")
+
+
+def addNewImage(key,data):
+	name = data['iname']
+	if not os.path.exists(STATIC_DIR+"/"+key):
+		os.makedirs(STATIC_DIR+"/"+key)
+	CURR_KEY_DIR = STATIC_DIR+"/"+key
+	with open(CURR_KEY_DIR + "/" + data['iname'],"wb") as image:
+		image.write(base64.decodestring(data['icode']))
+	addNewImageInFile(key,data['iname'],data['location'])
+
+def deleteImage(key,name):
+	IMAGE_FILE_DIR = DETAILS_DIR + "/" + key + ".txt"
+	with open(IMAGE_FILE_DIR,"r") as file:
+		fileData = file.read()
+	fileData = fileData.strip('\n').split('\n')
+	print(fileData)
+	file = open(IMAGE_FILE_DIR,"w")
+	imageDetails = {}
+	for imagee in fileData:
+		if imagee!='':
+			image = imagee.split(' ')
+			if(image[0]==name):
+				imageDetails['iname'] = image[0]
+				imageDetails['location'] = image[1]
+				with open(STATIC_DIR+"/"+key+"/" + name,"rb") as im:
+					imageDetails['icode'] = base64.encodestring(im.read())
+				os.remove(STATIC_DIR+"/"+key+"/" + name)
+			else:
+				file.write(imagee+"\n")
+	file.close()
+	print(imageDetails)
 	return imageDetails
 
 
@@ -104,10 +153,30 @@ def ImageApi(request):
 	else:
 		data = json.loads(request.body.decode('utf-8'))
 		key = data['key']
+		imageData = getImageData(key,str(data['iname']))
 		if request.method=='POST':
-			pass
-		elif request.method=='PATCH':
-			pass
-		elif request.method=="DELETE":
-			pass
+			if imageData['exists']:
+				dataToBeReturned['error'] = True
+				dataToBeReturned['description'] = "Image Name Already exists."
+			else :
+				try:
+					data['icode'] = data['icode'].encode()
+				except :
+					pass
+				addNewImage(key,data)
+		else :
+			if not imageData['exists']:
+				dataToBeReturned['error'] = True
+				dataToBeReturned['description'] = "Image does not exists."
+			elif request.method=='PATCH':
+				detailsOfImage = deleteImage(key,data['iname'])
+				if data['updateAttr']=="icode":
+					try:
+						data['updateVal'] = data['updateVal'].encode()
+					except :
+						pass
+				detailsOfImage[data['updateAttr']] = data['updateVal']
+				addNewImage(key,detailsOfImage)
+			elif request.method=="DELETE":
+				detailsOfImage = deleteImage(key,data['iname'])
 	return JsonResponse(dataToBeReturned)
