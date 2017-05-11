@@ -10,8 +10,8 @@ FILE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DETAILS_DIR = FILE_DIR + "/metadata/details"
 STATIC_DIR = FILE_DIR + "/djreact/static/images"
 
-def getDebugState():
-	if(str(os.environ.get('Debug'))==str(False)):
+def getUrl():
+	if(str(os.environ.get('Heroku'))==str(False)):
 		return False
 	return True
 
@@ -57,7 +57,7 @@ def readImageFile(key):
 			imageDetail['name'] = image[0]
 			imageDetail['location'] = image[1]
 			imageDetail['partial-url'] = image[2]
-			if getDebugState():
+			if getUrl():
 				imageDetail['http-url'] = "127.0.0.1:8000"+image[2]
 			else:
 				imageDetail['http-url'] = "https://imagicaa.herokuapp.com"+image[2]
@@ -80,7 +80,7 @@ def getImageData(key,iname):
 				imageDetails['exists'] = True
 				imageDetails['name'] = image[0]
 				imageDetails['location'] = image[1]
-				if getDebugState():
+				if getUrl():
 					imageDetails['http-url'] = "127.0.0.1:8000"+image[2]
 				else:
 					imageDetails['http-url'] = "https://imagicaa.herokuapp.com"+image[2]
