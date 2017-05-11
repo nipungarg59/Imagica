@@ -105,11 +105,17 @@ def addNewImage(key,data):
 	if not os.path.exists(STATIC_DIR+"/"+key):
 		os.makedirs(STATIC_DIR+"/"+key)
 	if not os.path.exists(STATIC_DIR+"/"+key):
-		print("doesnt exist")
+		print(" directory doesnt exist")
 		os.makedirs(STATIC_DIR+"/"+key)
+	else:
+		print(" directory  exist")
 	CURR_KEY_DIR = STATIC_DIR+"/"+key
 	with open(CURR_KEY_DIR + "/" + data['iname'],"wb") as image:
 		image.write(base64.decodestring(data['icode']))
+	if not os.path.isfile(CURR_KEY_DIR + "/" + data['iname']):
+		print(" file doesnt exist")
+	else:
+		print(" file  exist")
 	addNewImageInFile(key,data['iname'],data['location'])
 	compressImage(CURR_KEY_DIR + "/" + data['iname'])
 
