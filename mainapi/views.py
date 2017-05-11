@@ -87,7 +87,12 @@ def getImageData(key,iname):
 				imageDetails['partial-url'] = image[2]
 	return imageDetails
 
-def compressImage(image):
+def compressImage(imagePath):
+	# Can use PIL Library but it was looking pointless
+	# from PIL import Image
+	# image = Image.open(imagePath)
+	# image.save(imagePath,quality=55,optimize=True)
+	# image.close()
 	pass
 
 def addNewImageInFile(key,name,location):
