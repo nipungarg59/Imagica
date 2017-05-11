@@ -104,6 +104,9 @@ def addNewImage(key,data):
 	name = data['iname']
 	if not os.path.exists(STATIC_DIR+"/"+key):
 		os.makedirs(STATIC_DIR+"/"+key)
+	if not os.path.exists(STATIC_DIR+"/"+key):
+		print("doesnt exist")
+		os.makedirs(STATIC_DIR+"/"+key)
 	CURR_KEY_DIR = STATIC_DIR+"/"+key
 	with open(CURR_KEY_DIR + "/" + data['iname'],"wb") as image:
 		image.write(base64.decodestring(data['icode']))
@@ -136,7 +139,7 @@ def deleteImage(key,name):
 
 
 @csrf_exempt
-@key_exist
+@key_exist     # >>>>>>>>>>>>>>> MY Own Decorator <<<<<<<<<<<<
 def ImageApi(request):
 	dataToBeReturned = {}
 	dataToBeReturned['error'] = False
