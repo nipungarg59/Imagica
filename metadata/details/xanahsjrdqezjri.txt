@@ -1,2 +1,4 @@
 abc.gif sff /static/images/xanahsjrdqezjri/abc.gif
 ab2c.gif france /static/images/xanahsjrdqezjri/ab2c.gif
+goo.jpg Italy /static/images/xanahsjrdqezjri/goo.jpg
+goso.jpg france /static/images/xanahsjrdqezjri/goso.jpg

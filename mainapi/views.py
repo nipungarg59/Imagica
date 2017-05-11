@@ -16,12 +16,12 @@ def getDebugState():
 	return True
 
 def generateAccessKey(request):
-	print(FILE_DIR)
+	# print(FILE_DIR)
 	accessKeyFile = open(FILE_DIR+"/metadata/accessKeyList.txt","r")
 	accessKeyList = accessKeyFile.read()
 	accessKeyFile.close()
 	accessKeyList = accessKeyList.strip('\n').split('\n')
-	print(accessKeyList)
+	# print(accessKeyList)
 	newKey = ""
 	while True:
 		newKey = ""
@@ -46,7 +46,7 @@ def readImageFile(key):
 	fileData = filePtr.read()
 	filePtr.close()
 	fileData = fileData.strip('\n').split('\n')
-	print(fileData)
+	# print(fileData)
 	detailsOfFile['count']=0
 	detailsOfFile['images'] = []
 	for image in fileData:
@@ -71,7 +71,7 @@ def getImageData(key,iname):
 	fileData = filePtr.read()
 	filePtr.close()
 	fileData = fileData.strip('\n').split('\n')
-	print(fileData)
+	# print(fileData)
 	imageDetails['exists'] = False
 	for image in fileData:
 		if image!='':
@@ -87,6 +87,9 @@ def getImageData(key,iname):
 				imageDetails['partial-url'] = image[2]
 	return imageDetails
 
+def compressImage(image):
+	pass
+
 def addNewImageInFile(key,name,location):
 	with open(DETAILS_DIR+'/'+key+'.txt',"a") as file:
 		file.write(name+" "+location+" "+"/static/images/"+key+"/"+name+"\n")
@@ -100,13 +103,14 @@ def addNewImage(key,data):
 	with open(CURR_KEY_DIR + "/" + data['iname'],"wb") as image:
 		image.write(base64.decodestring(data['icode']))
 	addNewImageInFile(key,data['iname'],data['location'])
+	compressImage(CURR_KEY_DIR + "/" + data['iname'])
 
 def deleteImage(key,name):
 	IMAGE_FILE_DIR = DETAILS_DIR + "/" + key + ".txt"
 	with open(IMAGE_FILE_DIR,"r") as file:
 		fileData = file.read()
 	fileData = fileData.strip('\n').split('\n')
-	print(fileData)
+	# print(fileData)
 	file = open(IMAGE_FILE_DIR,"w")
 	imageDetails = {}
 	for imagee in fileData:
@@ -121,8 +125,9 @@ def deleteImage(key,name):
 			else:
 				file.write(imagee+"\n")
 	file.close()
-	print(imageDetails)
+	# print(imageDetails)
 	return imageDetails
+
 
 
 @csrf_exempt
@@ -160,6 +165,15 @@ def ImageApi(request):
 				dataToBeReturned['description'] = "Image Name Already exists."
 			else :
 				try:
+					if(data['icode'][:4]=="data"):
+						s = ""
+						found = False
+						for i in data['icode']:
+							if found:
+								s+=i
+							elif i==',':
+								found=True
+						data['icode'] = s
 					data['icode'] = data['icode'].encode()
 				except :
 					pass
