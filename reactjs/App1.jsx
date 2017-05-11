@@ -73,26 +73,7 @@ class App1 extends React.Component {
 				<hr/>
 				<div className="container" style={{textAlign:"center"}}>
 					<h3>Get Method</h3>
-					<h5>Details : </h5>
-					url : https://imagicaa.herokuapp.com/api/
-					Parameters : 
-					<div className="col-sm-6">
-						<br/>
-						<span>error: 'True',</span>
-						<br/>
-						<span>&nbsp;&nbsp;&nbsp;&nbsp;description: 'Description Of error.'</span>
-						<br/>
-						<span>&#125;</span>
-					</div>
-					<div className="col-sm-6">
-						<span>&#123;</span>
-						<br/>
-						<span>&nbsp;&nbsp;&nbsp;&nbsp;error: 'False',</span>
-						<br/>
-						<span>&nbsp;&nbsp;&nbsp;&nbsp;accessKey: 'accessKey'</span>
-						<br/>
-						<span>&#125;</span>
-					</div>
+					<img src="/static/images/df.jpg" style={{maxHeight:'50%',width:'100%',maxWidth:'400px',margin:'auto'}} className="img-responsive"></img>
 				</div>
 
 			</div>
