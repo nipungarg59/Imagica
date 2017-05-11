@@ -73,7 +73,7 @@ class App1 extends React.Component {
 				<hr/>
 				<div className="container" style={{textAlign:"center"}}>
 					<h3>Get Method</h3>
-					<img src="/static/images/df.jpg" style={{maxHeight:'50%',width:'100%',maxWidth:'400px',margin:'auto'}} className="img-responsive"></img>
+					
 				</div>
 
 			</div>
