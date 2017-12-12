@@ -2,3 +2,5 @@ wordnet
 stopwords
 punkt
 brown
+omw
+names

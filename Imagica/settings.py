@@ -24,7 +24,7 @@ def getKey():
 
 def getDebugState():
     if(str(os.environ.get('Debug'))==str(False)):
-        return False
+        return True
     return True
 
 # Quick-start development settings - unsuitable for production
