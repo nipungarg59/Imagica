@@ -70,7 +70,7 @@ class App2 extends React.Component {
 						<h3>Tf-Idf :{this.state.similarity['Tf-Idf']}</h3>
 						<h3>Indexing :{this.state.similarity['Indexing']}</h3>
 						<h3>Distribution-F :{this.state.similarity['Distribution-F']}</h3>
-						<h3>Distribution-F :{this.state.similarity['Distribution-F']}</h3>
+						<h3>Distribution-T :{this.state.similarity['Distribution-T']}</h3>
 						<img src={this.state.similarity['image_url']}/>
 						<hr/>
 					</div>:
