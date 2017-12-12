@@ -20,6 +20,7 @@ FILE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_DIR = FILE_DIR + "/djreact/static/images/"
 
 def analysis(str1, str2):
+	print(str1, str2)
 	data = {
 		'Tf-Idf' : tfidf.cosine_sim(str1,str2),
 		'Indexing' : m2.similarity(str1,str2),
@@ -29,16 +30,17 @@ def analysis(str1, str2):
 
 	objects = ('Tfidf', 'Lsi', 'Dist-f', 'Dist-t')
 	y_pos = np.arange(len(objects))
-	performance = [data['one'], data['two'], data['three'], data['four']]
+	performance = [data['Tf-Idf'], data['Indexing'], data['Distribution-F'], data['Distribution-T']]
 	 
 	plt.bar(y_pos, performance, align='center', alpha=0.5)
 	plt.xticks(y_pos, objects)
 	plt.ylabel('Similarity')
 	plt.title('Analysis of Semantic Similarity')
 	random_str = str(hashlib.sha1(os.urandom(128)).hexdigest())[:32]
-	image_name = STATIC_DIR + random_str + '.jpg'
+	image_name = STATIC_DIR + random_str + '.svg'
 	plt.savefig(image_name)
-	
-	data['image_url'] = "https://imagica.herokuapp.com/static/images/" + random_str + '.jpg'
+	for key in data:
+		data[key] = str(data[key])
+	data['image_url'] = "https://imagica.herokuapp.com/static/images/" + random_str + '.svg'
 
 	return data
