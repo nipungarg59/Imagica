@@ -38,7 +38,7 @@ class App2 extends React.Component {
 			"Content-Type": "application/json"
 			},
 		}).then(res => res.json()).then(res => {
-			this.setState({similarity : res.message})
+			this.setState({similarity : res})
 		})
 	}
 
@@ -64,11 +64,18 @@ class App2 extends React.Component {
 					<button className="btn btn-primary" onClick={this.onClickSubmit}>Submit</button>
 				</div>
 				<br/>
-				<div className="container" style={{textAlign:"center",}}>
-					<h3>{this.state.similarity}</h3>
-				
-					<hr/>
-				</div>
+				{this.state.similarity?
+					<div className="container" style={{textAlign:"center",}}>
+						
+						<h3>Tf-Idf :{this.state.similarity['Tf-Idf']}</h3>
+						<h3>Indexing :{this.state.similarity['Indexing']}</h3>
+						<h3>Distribution-F :{this.state.similarity['Distribution-F']}</h3>
+						<h3>Distribution-F :{this.state.similarity['Distribution-F']}</h3>
+						<img src={this.state.similarity['image_url']}/>
+						<hr/>
+					</div>:
+					<div/>
+				}
 
 			</div>
 		)

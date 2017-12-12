@@ -39,10 +39,14 @@ def analysis(str1, str2):
 	plt.ylabel('Similarity')
 	plt.title('Analysis of Semantic Similarity')
 	random_str = str(hashlib.sha1(os.urandom(128)).hexdigest())[:32]
-	image_name = STATIC_DIR + random_str + '.svg'
+	image_name = STATIC_DIR + random_str + '.png'
 	plt.savefig(image_name)
 	for key in data:
 		data[key] = str(data[key])
-	data['image_url'] = "https://imagica.herokuapp.com/static/images/" + random_str + '.svg'
+	
+	import base64
+	with open(image_name, "rb") as image_file:
+		encoded_string = base64.b64encode(image_file.read())
+	data['image_url'] = "data:image/png;base64, "+encoded_string
 
 	return data
