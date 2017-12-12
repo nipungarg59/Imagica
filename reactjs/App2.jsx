@@ -11,6 +11,7 @@ class App2 extends React.Component {
 			similarity : '',
 			phrase_1 : '',
 			phrase_2 : '',
+			loaderclass : {'display':'none'}
 		}
 		this.onClickSubmit = this.onClickSubmit.bind(this);
 		this.handlePhrase1Change = this.handlePhrase1Change.bind(this);
@@ -31,6 +32,7 @@ class App2 extends React.Component {
 
 	onClickSubmit()
 	{
+		this.setState({loaderclass: {}, similarity : ''})
 		fetch('/get/analysis', {
 			method: "POST",
 			body: JSON.stringify({ ...this.state}),
@@ -38,7 +40,7 @@ class App2 extends React.Component {
 			"Content-Type": "application/json"
 			},
 		}).then(res => res.json()).then(res => {
-			this.setState({similarity : res})
+			this.setState({similarity : res, loaderclass: {'display':'none'}})
 		})
 	}
 
@@ -64,6 +66,9 @@ class App2 extends React.Component {
 					<button className="btn btn-primary" onClick={this.onClickSubmit}>Submit</button>
 				</div>
 				<br/>
+				<div style={{textAlign:"center"}}>
+					<img src="https://loading.io/spinners/typing/lg.-text-entering-comment-loader.gif" style={this.state.loaderclass}/>
+				</div>
 				{this.state.similarity?
 					<div className="container" style={{textAlign:"center",}}>
 						
