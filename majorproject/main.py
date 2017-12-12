@@ -1,3 +1,6 @@
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from matplotlib import style
 from __future__ import division
 import nltk
 from nltk.corpus import wordnet as wn
@@ -8,8 +11,6 @@ import sys
 from . import path_len_sim, m2, tfidf
 import pandas as pd 
 import random
-import matplotlib.pyplot as plt
-from matplotlib import style
 from collections import Counter 
 import plotly.plotly as py
 import datetime, hashlib, os, random 
