@@ -8,6 +8,7 @@ import sys
 from . import path_len_sim, m2, tfidf
 import pandas as pd 
 import random
+import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib import style
