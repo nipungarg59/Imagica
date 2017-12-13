@@ -92,15 +92,3 @@ def word_order_similarity(sentence_1, sentence_2):
 def similarity(sentence_1, sentence_2, info_content_norm):
     return DELTA * semantic_similarity(sentence_1, sentence_2, info_content_norm) + \
         (1.0 - DELTA) * word_order_similarity(sentence_1, sentence_2)
-        
-
-
-'''temp=[
-        ['nipun loves everyone and everyone loves nipun','Nipun love and loved by everyone'],
-        ['B2 is batch of mad','Nipun is mad']
-        ]
-
-print "%s\t%s\t%.3f\t%.3f" % (temp[0][0],temp[0][1],similarity(temp[0][0], temp[0][1], False),similarity(temp[0][0], temp[0][1], True))
-print "%s\t%s\t%.3f\t%.3f" % (temp[1][0],temp[1][1],similarity(temp[1][0], temp[1][1], False),similarity(temp[1][0], temp[1][1], True))
-
-'''
