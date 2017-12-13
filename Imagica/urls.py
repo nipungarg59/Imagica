@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^getKey/$',generateAccessKey),
     url(r'^api/',ImageApi),
     url(r'^get/analysis', getAnalysis),
-    url(r'^semantic/similarity', generic.TemplateView.as_view(template_name='view2.html'))
+    url(r'^semantic/similarity/about', generic.TemplateView.as_view(template_name='view3.html')),
+    url(r'^semantic/similarity', generic.TemplateView.as_view(template_name='view2.html')),
 ]

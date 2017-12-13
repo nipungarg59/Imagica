@@ -47,6 +47,9 @@ class App2 extends React.Component {
 	render() {
 		return (
 			<div className="container">
+				<div style={{'top':'0', textAlign:"right", 'marginTop':'10px'}}>
+					<span style={{'cursor':'pointer','backgroundColor':'rgba(44,44,44,0.7)', 'color':'white', 'fontSize':'24px', 'padding': '18px'}}><a style={{'color':'white'}} href="/semantic/similarity/about">About Us</a></span>
+				</div>
 				<div className="container" style={{textAlign:"center"}}>
 					<h1>Finding Semantic Similarity</h1>
 					<br/>
