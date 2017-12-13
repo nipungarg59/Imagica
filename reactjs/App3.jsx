@@ -44,6 +44,10 @@ class App3 extends React.Component {
 		})
 	}
 
+	componentDidMount(){
+		document.title = "Semantic Similarity - About Us!!"
+	}
+
 	render() {
 		return (
 			<div className="container">

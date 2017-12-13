@@ -44,6 +44,10 @@ class App2 extends React.Component {
 		})
 	}
 
+	componentDidMount(){
+		document.title = "Semantic Similarity - Find And Compare Through Different Algorithms!!"
+	}
+
 	render() {
 		return (
 			<div className="container">
