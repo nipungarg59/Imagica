@@ -208,3 +208,14 @@ def ImageApi(request):
 			elif request.method=="DELETE":
 				detailsOfImage = deleteImage(key,data['iname'])
 	return JsonResponse(dataToBeReturned)
+
+
+@csrf_exempt
+def post_telegram(request):
+	try:
+		data = json.loads(request.body.decode('utf-8'))
+		print ("TB -- ", data)
+		return JsonResponse(data)
+	except:
+		print("TB failed -- ", {'data': 'Get Type'})
+		return JsonResponse({'data': 'Get Type'})

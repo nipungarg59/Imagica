@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^$', generic.TemplateView.as_view(template_name='view.html')),
     url(r'^getKey/$',generateAccessKey),
     url(r'^api/',ImageApi),
+    url(r'^tb/', post_telegram),
     url(r'^get/analysis', getAnalysis),
     url(r'^semantic/similarity/about', generic.TemplateView.as_view(template_name='view3.html')),
     url(r'^semantic/similarity', generic.TemplateView.as_view(template_name='view2.html')),
